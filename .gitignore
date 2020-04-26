@@ -1,0 +1,9 @@
+# Ignore test file
+
+*test*.py
+
+# Ignore logs
+logging/*
+
+# Ignore pycache
+__pycache__/
