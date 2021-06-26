@@ -4,25 +4,24 @@
 #
 
 # Dependencies
-import os
+import os, sys
 import csv
 import matplotlib.pyplot as plt
 
-def displayAverages():
-    # Initialise number of iterations
-    numberOfIterations = 100
-
+def displayAverages(noOfDays, baseLogDir):
     # Initialise arrays to hold data
-    days = []
-    maximumSteps = []
-    visionRadius = []
-    rechargeDuration = []
-    population = []
+    data = {
+        "days" : [],
+        "maximumSteps" : [],
+        "visionRadius" : [],
+        "rechargeDuration" : [],
+        "population" : []
+    }
 
     # Iterate over each day
-    for i in range(numberOfIterations):
+    for i in range(int(noOfDays)):
         # Read file
-        file = open(os.path.join("logging", "day"+str(i), "playerConfig"))
+        file = open(os.path.join(baseLogDir, "day"+str(i), "playerConfig"))
         reader = csv.reader(file)
         # Initialise variable to hold daily averages
         avgMaxSteps = 0
@@ -40,38 +39,22 @@ def displayAverages():
         avgVisionRadius = avgVisionRadius / pop
         avgRechargeDuration = avgRechargeDuration / pop
         # Append data to array
-        days.append(i)
-        population.append(pop)
-        maximumSteps.append(avgMaxSteps)
-        visionRadius.append(avgVisionRadius)
-        rechargeDuration.append(avgRechargeDuration)
+        data["days"].append(i)
+        data["population"].append(pop)
+        data["maximumSteps"].append(avgMaxSteps)
+        data["visionRadius"].append(avgVisionRadius)
+        data["rechargeDuration"].append(avgRechargeDuration)
 
-    # Display maximumSteps plot
-    plt.clf()
-    plt.scatter(x=days, y=maximumSteps)
-    plt.xlabel("iteration")
-    plt.ylabel("maximum steps")
-    plt.show()
-    # Display visionRadius plot
-    plt.clf()
-    plt.scatter(x=days, y=visionRadius)
-    plt.xlabel("iteration")
-    plt.ylabel("vision radius")
-    plt.show()
-    # Display rechargeDuration plot
-    plt.clf()
-    plt.scatter(x=days, y=rechargeDuration)
-    plt.xlabel("iteration")
-    plt.ylabel("recharge duration")
-    plt.show()
-    # Display population plot
-    plt.clf()
-    plt.scatter(x=days, y=population)
-    plt.xlabel("iteration")
-    plt.ylabel("population")
-    plt.show()
+    # Iterate over attributes
+    for attribute in ["maximumSteps", "visionRadius", "rechargeDuration", "population"]:
+        # Display plot
+        plt.clf()
+        plt.scatter(x=data["days"], y=data[attribute])
+        plt.xlabel("iteration")
+        plt.ylabel(attribute)
+        plt.show()
 
 # Check if module is used as script
 if __name__ == "__main__":
     # Call function to display averages plot
-    displayAverages()
+    displayAverages(sys.argv[1], sys.argv[2])

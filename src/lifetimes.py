@@ -4,21 +4,18 @@
 #
 
 # Dependencies
-import os
+import os, sys
 import csv
 import matplotlib.pyplot as plt
 
-def displayLifetimes():
-    # Initialise number of iterations
-    numberOfIterations = 100
-
+def displayLifetimes(noOfDays, baseLogDir):
     # Initialise object to store data
     data = {}
 
     # Iterate over number of days
-    for i in range(numberOfIterations):
+    for i in range(int(noOfDays)):
         # Read player config file
-        file = open(os.path.join("logging", "day"+str(i), "playerConfig"))
+        file = open(os.path.join(baseLogDir, "day"+str(i), "playerConfig"))
         reader = csv.reader(file)
         # Iterate over each row
         for row in reader:
@@ -53,4 +50,4 @@ def displayLifetimes():
 # Check if module is used as script
 if __name__ == "__main__":
     # Call function to display lifetimes plot
-    displayLifetimes()
+    displayLifetimes(sys.argv[1], sys.argv[2])

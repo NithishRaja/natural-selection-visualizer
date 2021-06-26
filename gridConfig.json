@@ -1,0 +1,5 @@
+{
+  "gridSize" : 10,
+  "noOfDays" : 100,
+  "baseLogDir" : "logging"
+}
