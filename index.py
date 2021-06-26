@@ -6,4 +6,7 @@
 # Dependencies
 import matplotlib.pyplot as plt
 
-# Display a scatter plot
+# Local dependencies
+from src.averages import displayAverages
+
+displayAverages()

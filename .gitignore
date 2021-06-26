@@ -7,3 +7,6 @@ logging/*
 
 # Ignore pycache
 __pycache__/
+
+# Ignore bash scripts
+*.sh
